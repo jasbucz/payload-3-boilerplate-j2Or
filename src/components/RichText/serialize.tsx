@@ -4,6 +4,7 @@ import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import React, { Fragment, JSX } from 'react'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
 import type { BannerBlock as BannerBlockProps } from '@/payload-types'
 
@@ -19,6 +20,7 @@ import {
 import type {
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
+  Media as MediaType,
 } from '@/payload-types'
 
 export type NodeTypes =
@@ -166,7 +168,7 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                     aria-checked={node.checked ? 'true' : 'false'}
                     className={` ${node.checked ? '' : ''}`}
                     key={index}
-                     
+
                     role="checkbox"
                     tabIndex={-1}
                     value={node?.value}
@@ -187,6 +189,15 @@ export function serializeLexical({ nodes }: Props): JSX.Element {
                 <blockquote className="col-start-2" key={index}>
                   {serializedChildren}
                 </blockquote>
+              )
+            }
+            case 'upload': {
+              // Upload nodes come populated (Media doc) at depth >= 1; ids only at depth 0.
+              if (node.relationTo !== 'media') return null
+              const media = node.value as MediaType | number | string | null
+              if (!media || typeof media !== 'object') return null
+              return (
+                <Media className="col-start-2" imgClassName="m-0" key={index} resource={media} />
               )
             }
             case 'link': {

@@ -1,0 +1,414 @@
+/* AURA page theme — values taken from Figma file "AURA" (node 11:457). Scoped to .aura. */
+
+.aura {
+  --aura-bg: #0e0d0b;
+  --aura-surface: #141210;
+  --aura-line: #3a342a;
+  --aura-text: #f3ede2;
+  --aura-muted: #b9b1a3;
+  --aura-subtle: #8a8376;
+  --aura-gold: #d4af6a;
+  --aura-gold-bright: #f0b44d;
+  --aura-radius: 10px;
+  --aura-glow: rgba(212, 175, 106, 0.28);
+
+  min-height: 100vh;
+  background: var(--aura-bg);
+  color: var(--aura-text);
+  font-family: var(--aura-font-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.aura ::selection {
+  background: var(--aura-gold);
+  color: var(--aura-bg);
+}
+
+.aura-container {
+  width: 100%;
+  max-width: calc(1152px + 2 * 24px);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+.aura-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ---------- Logo ---------- */
+.aura-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+.aura-logo__mark {
+  width: 40px;
+  height: 40px;
+}
+.aura-logo__word {
+  width: auto;
+  height: 17px;
+}
+
+/* ---------- Header ---------- */
+.aura-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: rgba(14, 13, 11, 0.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--aura-line);
+}
+.aura-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  gap: 24px;
+}
+.aura-header__nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.aura-header__link {
+  font-size: 15px;
+  color: var(--aura-text);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.aura-header__link:hover {
+  color: var(--aura-gold);
+}
+
+/* ---------- Buttons ---------- */
+.aura .aura-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 24px;
+  margin-top: 32px;
+  border-radius: var(--aura-radius);
+  background: var(--aura-gold-bright);
+  color: var(--aura-bg);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  transition:
+    filter 0.15s,
+    transform 0.15s;
+}
+.aura .aura-btn:hover {
+  filter: brightness(1.08);
+}
+.aura .aura-btn--sm {
+  min-height: 44px;
+  padding: 0 20px;
+  margin-top: 0;
+}
+
+/* ---------- Rich text ---------- */
+.aura-rich > * + * {
+  margin-top: 16px;
+}
+.aura-rich h1,
+.aura-rich h2,
+.aura-rich h3 {
+  font-weight: 700;
+  color: var(--aura-text);
+  letter-spacing: -0.01em;
+}
+.aura-rich h1 {
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 1.08;
+  margin-top: 20px;
+}
+.aura-rich h1 strong {
+  display: block;
+  color: var(--aura-gold-bright);
+}
+.aura-rich h2 {
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.2;
+  margin-top: 20px;
+}
+.aura-rich h3 {
+  font-size: 19px;
+  line-height: 1.35;
+}
+.aura-rich p {
+  color: var(--aura-muted);
+  font-size: 15px;
+}
+.aura-rich a {
+  color: var(--aura-gold);
+}
+/* Eyebrow: a paragraph that is entirely bold (e.g. "KORZYŚCI"). */
+.aura-rich > p:has(> strong:only-child) {
+  font-family: var(--aura-font-display), var(--aura-font-sans), sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aura-gold);
+}
+/* Footnote: a paragraph that is entirely italic (e.g. "*Aplikacja dla osób pełnoletnich"). */
+.aura-rich > p:has(> em:only-child) {
+  font-size: 12px;
+  color: var(--aura-subtle);
+}
+.aura-rich > p:has(> em:only-child) em {
+  font-style: normal;
+}
+
+/* Numbered steps: h4 "01" + h3 title + paragraph(s), separated by lines. */
+.aura-rich:has(> h4) {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 40px;
+}
+.aura-rich:has(> h4) > * {
+  grid-column: 2;
+  margin-top: 0;
+}
+.aura-rich:has(> h4) > h4 {
+  grid-column: 1;
+  grid-row: span 2;
+  font-family: var(--aura-font-display), var(--aura-font-sans), sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 1.2;
+  color: var(--aura-gold-bright);
+}
+.aura-rich:has(> h4) > h4,
+.aura-rich:has(> h4) > h3 {
+  border-top: 1px solid var(--aura-line);
+  padding-top: 24px;
+}
+.aura-rich:has(> h4) > h3 + * {
+  margin-top: 8px;
+  padding-bottom: 28px;
+  font-size: 13px;
+}
+
+/* ---------- Hero ---------- */
+.aura-hero {
+  padding-block: 48px 72px;
+}
+.aura-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: 40px;
+}
+.aura-hero__grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
+/* Rich text children join the copy's flex column so the footnote can move below the store buttons. */
+.aura-hero__copy .aura-rich {
+  display: contents;
+}
+.aura-hero__copy .aura-rich > * {
+  max-width: 400px;
+}
+.aura-hero__copy .aura-store {
+  order: 1;
+}
+.aura-hero__copy .aura-rich p:not(:has(> strong:only-child)):not(:has(> em:only-child)) {
+  font-size: 16px;
+}
+/* Footnote is placed under the store buttons in the design. */
+.aura-hero__copy {
+  display: flex;
+  flex-direction: column;
+}
+.aura-hero__copy .aura-rich > p:has(> em:only-child) {
+  order: 2;
+  margin-top: 0;
+}
+.aura-hero__media {
+  margin-right: -24px;
+}
+
+.aura-store {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin: 24px 0;
+  padding: 0;
+  list-style: none;
+}
+.aura .aura-store__btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 184px;
+  min-height: 57px;
+  padding: 7px 21px;
+  border: 1px solid var(--aura-line);
+  border-radius: var(--aura-radius);
+  background: var(--aura-surface);
+  color: var(--aura-text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+.aura .aura-store__btn:hover {
+  border-color: var(--aura-gold);
+}
+.aura-store__prefix {
+  font-size: 11px;
+  line-height: 1.3;
+  color: var(--aura-muted);
+}
+.aura-store__name {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ---------- Sections ---------- */
+.aura-section {
+  padding-block: 72px;
+  scroll-margin-top: 76px;
+}
+.aura-section__header {
+  margin-bottom: 40px;
+}
+
+/* Cards (Korzyści) */
+.aura-cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+}
+.aura-card {
+  position: relative;
+  padding: 30px 28px 32px;
+  border: 1px solid var(--aura-line);
+  border-radius: var(--aura-radius);
+  background:
+    linear-gradient(180deg, rgba(212, 175, 106, 0.06), rgba(212, 175, 106, 0) 45%),
+    var(--aura-surface);
+  overflow: hidden;
+}
+.aura-card__icon {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 24px;
+  border: 1px solid var(--aura-gold);
+  border-radius: 50%;
+  background: var(--aura-bg);
+  box-shadow:
+    0 0 0 5px rgba(212, 175, 106, 0.08),
+    0 0 36px 10px var(--aura-glow);
+}
+.aura-card .aura-rich h3 {
+  font-size: 18px;
+}
+.aura-card .aura-rich p {
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+/* Split (Jak to działa / Doładowania) */
+.aura-split {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  align-items: center;
+  gap: 64px;
+}
+.aura-split__col + .aura-split__col {
+  margin-top: 32px;
+}
+.aura-split__media {
+  display: grid;
+  gap: 24px;
+}
+
+.aura-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+}
+
+/* ---------- Footer ---------- */
+.aura-footer {
+  border-top: 1px solid var(--aura-line);
+  font-size: 12px;
+  color: var(--aura-subtle);
+}
+.aura-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 32px;
+  min-height: 58px;
+  padding-block: 16px;
+}
+.aura-footer__nav {
+  display: flex;
+  gap: 24px;
+}
+.aura-footer a {
+  color: var(--aura-text);
+  text-decoration: none;
+}
+.aura-footer a:hover {
+  color: var(--aura-gold);
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .aura-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .aura-hero__grid,
+  .aura-split {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+  .aura-hero__media {
+    margin-right: 0;
+    max-width: 560px;
+    margin-inline: auto;
+  }
+  .aura-split__media {
+    max-width: 560px;
+    width: 100%;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .aura-header__link {
+    display: none;
+  }
+  .aura-logo__mark {
+    width: 34px;
+    height: 34px;
+  }
+  .aura-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .aura-section {
+    padding-block: 48px;
+  }
+  .aura-hero {
+    padding-block: 32px 48px;
+  }
+  .aura-rich:has(> h4) {
+    column-gap: 20px;
+  }
+  .aura-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
