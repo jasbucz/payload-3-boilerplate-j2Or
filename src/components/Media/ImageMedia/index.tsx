@@ -51,7 +51,8 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     src = url?.startsWith('/') ? url : `${getClientSideURL()}${url}`
   }
 
-  const loading = loadingFromProps || 'lazy'
+  // next/image rejects `priority` combined with `loading="lazy"`; priority images load eagerly.
+  const loading = priority ? undefined : loadingFromProps || 'lazy'
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps

@@ -194,6 +194,10 @@ export interface Page {
     description?: string | null;
   };
   publishedAt?: string | null;
+  /**
+   * AURA: ciemny motyw z własnym nagłówkiem (logo, nawigacja po sekcjach) i stopką.
+   */
+  theme?: ('default' | 'aura') | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -962,6 +966,7 @@ export interface PagesSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  theme?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;

@@ -11,6 +11,7 @@ import type { Page as PageType } from '@/payload-types'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
+import { AuraPage } from '@/themes/aura/AuraPage'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 
@@ -40,6 +41,16 @@ export default async function Page({ params: paramsPromise }: Args) {
   }
 
   const { hero, layout } = page
+
+  if (page.theme === 'aura') {
+    return (
+      <>
+        <PageClient />
+        <PayloadRedirects disableNotFound url={url} />
+        <AuraPage page={page} />
+      </>
+    )
+  }
 
   return (
     <article className="pt-16 pb-24">

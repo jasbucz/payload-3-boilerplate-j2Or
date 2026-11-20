@@ -120,6 +120,21 @@ export const Pages: CollectionConfig<'pages'> = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'theme',
+      type: 'select',
+      label: 'Motyw strony',
+      defaultValue: 'default',
+      options: [
+        { label: 'Domyślny', value: 'default' },
+        { label: 'AURA', value: 'aura' },
+      ],
+      admin: {
+        position: 'sidebar',
+        description:
+          'AURA: ciemny motyw z własnym nagłówkiem (logo, nawigacja po sekcjach) i stopką.',
+      },
+    },
     ...slugField(),
   ],
   hooks: {
