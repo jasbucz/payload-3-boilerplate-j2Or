@@ -12,6 +12,7 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 
 import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
+import { localOrAuthenticated } from '@/access/localOrAuthenticated'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
@@ -27,6 +28,7 @@ export const plugins: Plugin[] = [
   redirectsPlugin({
     collections: ['pages', 'posts'],
     overrides: {
+      access: { read: localOrAuthenticated },
       // @ts-expect-error
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
@@ -58,6 +60,8 @@ export const plugins: Plugin[] = [
       payment: false,
     },
     formOverrides: {
+      // Form definitions reach the website via the Local API; submissions stay public (plugin default).
+      access: { read: localOrAuthenticated },
       fields: ({ defaultFields }) => {
         return defaultFields.map((field) => {
           if ('name' in field && field.name === 'confirmationMessage') {
@@ -85,6 +89,7 @@ export const plugins: Plugin[] = [
     skipSync: ({ req }) =>
       process.env.DISABLE_SEARCH_SYNC === 'true' || Boolean(req.context.disableSearchSync),
     searchOverrides: {
+      access: { read: localOrAuthenticated },
       fields: ({ defaultFields }) => {
         return [...defaultFields, ...searchFields]
       },

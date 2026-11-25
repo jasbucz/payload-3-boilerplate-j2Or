@@ -15,7 +15,11 @@ export const Users: CollectionConfig = {
     defaultColumns: ['name', 'email'],
     useAsTitle: 'name',
   },
-  auth: true,
+  // API keys: in the admin panel open a user, tick "Enable API Key" and copy the key.
+  // Requests then send `Authorization: users API-Key <key>`.
+  auth: {
+    useAPIKey: true,
+  },
   fields: [
     {
       name: 'name',

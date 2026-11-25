@@ -1,13 +1,11 @@
-import type { Access } from 'payload'
+import { authenticatedOrLocalWhere } from './localOrAuthenticated'
 
-export const authenticatedOrPublished: Access = ({ req: { user } }) => {
-  if (user) {
-    return true
-  }
-
-  return {
-    _status: {
-      equals: 'published',
-    },
-  }
-}
+/**
+ * Logged-in users and API-key requests see everything (incl. drafts);
+ * the website (Local API) sees published documents; anonymous REST/GraphQL sees nothing.
+ */
+export const authenticatedOrPublished = authenticatedOrLocalWhere({
+  _status: {
+    equals: 'published',
+  },
+})

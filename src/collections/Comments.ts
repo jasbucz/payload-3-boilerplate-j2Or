@@ -1,5 +1,6 @@
 import { CollectionConfig } from 'payload'
 import { authenticated } from '../access/authenticated'
+import { authenticatedOrLocalWhere } from '../access/localOrAuthenticated'
 import { revalidatePath } from 'next/cache'
 
 export const Comments: CollectionConfig = {
@@ -9,17 +10,12 @@ export const Comments: CollectionConfig = {
     description: 'Comments submitted by visitors on blog posts',
   },
   access: {
-    read: ({ req: { user } }) => {
-      if (user) {
-        return true
-      }
-
-      return {
-        isApproved: {
-          equals: true,
-        },
-      }
-    },
+    // Website (Local API) shows approved comments; REST/GraphQL requires a session or API key.
+    read: authenticatedOrLocalWhere({
+      isApproved: {
+        equals: true,
+      },
+    }),
     create: () => true,
     update: authenticated,
     delete: authenticated
